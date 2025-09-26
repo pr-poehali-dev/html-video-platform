@@ -21,91 +21,91 @@ interface Video {
 const mockVideos: Video[] = [
   {
     id: 1,
-    title: "Самый захватывающий триллер года - обзор фильма 'Темная Ночь'",
-    channel: "КиноОбзоры",
-    channelAvatar: "КО",
-    views: "2,3 млн",
+    title: "Как правильно готовить пасту карбонара | Секреты итальянской кухни",
+    channel: "Кулинарный канал",
+    channelAvatar: "КК",
+    views: "2,1 млн",
     uploadTime: "2 дня назад",
-    duration: "15:32",
+    duration: "12:45",
     thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
-    description: "Подробный разбор нового триллера с Иваном Петровым"
+    description: "Пошаговый рецепт классической пасты карбонара"
   },
   {
     id: 2,
-    title: "ТОП-10 лучших боевиков 2023 года | Что посмотреть на выходных",
-    channel: "КиноТоп",
-    channelAvatar: "КТ",
+    title: "Майнкрафт: Строю ОГРОМНЫЙ замок в выживании! #15",
+    channel: "GameMaster",
+    channelAvatar: "ГМ",
     views: "1,8 млн",
-    uploadTime: "1 неделя назад",
-    duration: "22:45",
+    uploadTime: "1 день назад",
+    duration: "28:32",
     thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
-    description: "Подборка самых зрелищных боевиков этого года"
+    description: "Продолжаю строительство замка в майнкрафте"
   },
   {
     id: 3,
-    title: "Разбор концовки фильма 'Тени Прошлого' - все пасхалки и детали",
-    channel: "КиноТеории",
-    channelAvatar: "КР",
-    views: "850 тыс",
+    title: "ВЛОГ: Мой обычный день в Москве | Работа, спорт, друзья",
+    channel: "ВлогиМаши",
+    channelAvatar: "ВМ",
+    views: "950 тыс",
     uploadTime: "3 дня назад",
-    duration: "18:21",
+    duration: "15:21",
     thumbnail: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
-    description: "Объясняем сложную концовку мистического хоррора"
+    description: "Показываю как проходит мой обычный рабочий день"
   },
   {
     id: 4,
-    title: "КОСМИЧЕСКАЯ ОДИССЕЯ - Лучший фантастический фильм десятилетия?",
-    channel: "Космо Кино",
-    channelAvatar: "КК",
+    title: "Обучение программированию: Python для начинающих - урок 1",
+    channel: "Код Гуру",
+    channelAvatar: "КГ",
     views: "3,2 млн",
     uploadTime: "5 дней назад",
-    duration: "28:14",
+    duration: "42:18",
     thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
-    description: "Полный обзор эпической космической саги"
+    description: "Изучаем основы программирования на Python с нуля"
   },
   {
     id: 5,
-    title: "За кадром: Как снимали сцены погонь в 'Городские Джунгли'",
-    channel: "КиноКухня",
-    channelAvatar: "КК",
-    views: "945 тыс",
-    uploadTime: "4 дня назад",
-    duration: "12:08",
+    title: "Реакция на новый клип MORGENSHTERN - разбор каждой строчки",
+    channel: "МузыкальныйРазбор",
+    channelAvatar: "МР",
+    views: "1,5 млн",
+    uploadTime: "12 часов назад",
+    duration: "18:44",
     thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
-    description: "Эксклюзивные кадры со съемочной площадки"
+    description: "Детальный разбор нового музыкального клипа"
   },
   {
     id: 6,
-    title: "Все фильмы франшизы 'Последний Герой' - от худшего к лучшему",
-    channel: "КиноРейтинг",
-    channelAvatar: "КР",
-    views: "1,3 млн",
-    uploadTime: "1 день назад",
-    duration: "35:42",
+    title: "Как я похудел на 20 кг за 6 месяцев | Моя история + советы",
+    channel: "ФитнесМотивация",
+    channelAvatar: "ФМ",
+    views: "2,8 млн",
+    uploadTime: "1 неделя назад",
+    duration: "25:12",
     thumbnail: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
-    description: "Разбираем всю серию фильмов о последнем герое"
+    description: "Рассказываю о своем пути к здоровому образу жизни"
   },
   {
     id: 7,
-    title: "РЕАКЦИЯ на трейлер 'Темная Ночь 2' - МОИ ПРЕДСКАЗАНИЯ СБЫЛИСЬ!",
-    channel: "РеакцииПро",
-    channelAvatar: "РП",
-    views: "2,7 млн",
+    title: "ПРАНК: Притворился курьером и удивил лучшего друга!",
+    channel: "ПранкТайм",
+    channelAvatar: "ПТ",
+    views: "4,1 млн",
     uploadTime: "6 часов назад",
-    duration: "8:45",
+    duration: "11:33",
     thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
-    description: "Бурная реакция на долгожданный трейлер сиквела"
+    description: "Веселый пранк над лучшим другом с сюрпризом"
   },
   {
     id: 8,
-    title: "Интервью с режиссером 'Взрывной Волны' о секретах создания фильма",
-    channel: "КиноИнтервью",
-    channelAvatar: "КИ",
-    views: "674 тыс",
-    uploadTime: "2 недели назад",
-    duration: "45:12",
+    title: "Обзор нового iPhone 15 Pro - стоит ли покупать?",
+    channel: "ТехОбзоры",
+    channelAvatar: "ТО",
+    views: "1,2 млн",
+    uploadTime: "4 дня назад",
+    duration: "16:55",
     thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
-    description: "Эксклюзивное интервью с создателем блокбастера"
+    description: "Подробный обзор нового айфона со всеми плюсами и минусами"
   }
 ]
 
@@ -121,11 +121,11 @@ const sidebarItems = [
 ]
 
 const subscriptions = [
-  { name: "КиноОбзоры", avatar: "КО", online: true },
-  { name: "КиноТоп", avatar: "КТ", online: false },
-  { name: "КиноТеории", avatar: "КР", online: true },
-  { name: "Космо Кино", avatar: "КК", online: false },
-  { name: "КиноКухня", avatar: "КК", online: true },
+  { name: "Кулинарный канал", avatar: "КК", online: true },
+  { name: "GameMaster", avatar: "ГМ", online: false },
+  { name: "ВлогиМаши", avatar: "ВМ", online: true },
+  { name: "Код Гуру", avatar: "КГ", online: false },
+  { name: "ФитнесМотивация", avatar: "ФМ", online: true },
 ]
 
 export default function Index() {
@@ -252,7 +252,7 @@ export default function Index() {
         <main className="flex-1 p-6">
           {/* Category chips */}
           <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
-            {['Все', 'Кино', 'Обзоры', 'Трейлеры', 'Интервью', 'Топы', 'Реакции', 'За кадром'].map((category, index) => (
+            {['Все', 'Игры', 'Влоги', 'Обучение', 'Музыка', 'Кулинария', 'Технологии', 'Спорт'].map((category, index) => (
               <Button
                 key={index}
                 variant={index === 0 ? "default" : "secondary"}
