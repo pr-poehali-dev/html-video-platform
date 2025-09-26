@@ -154,8 +154,11 @@ export default function Index() {
               <Icon name="Menu" size={20} />
             </Button>
             <div className="flex items-center gap-2">
-              <Icon name="Play" size={28} className="text-primary" />
-              <span className="text-xl font-semibold hidden sm:block">VideoStream</span>
+              <div className="relative">
+                <Icon name="Play" size={28} className="text-accent animate-pulse" />
+                <div className="absolute inset-0 bg-accent/20 rounded-full blur-lg animate-pulse" />
+              </div>
+              <span className="text-xl font-bold gradient-text hidden sm:block">VideoStream</span>
             </div>
           </div>
 
@@ -165,14 +168,14 @@ export default function Index() {
               <div className="relative flex-1">
                 <Input
                   type="text"
-                  placeholder="Поиск"
+                  placeholder="Поиск видео..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="rounded-r-none border-r-0 focus:z-10"
+                  className="search-input rounded-r-none border-r-0 focus:z-10 pl-4"
                 />
               </div>
-              <Button variant="outline" className="rounded-l-none px-6">
-                <Icon name="Search" size={20} />
+              <Button variant="outline" className="rounded-l-none px-6 bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary border-accent">
+                <Icon name="Search" size={20} className="text-white" />
               </Button>
             </div>
           </div>
@@ -204,9 +207,9 @@ export default function Index() {
                 <Button
                   key={index}
                   variant={item.active ? "secondary" : "ghost"}
-                  className={`w-full justify-start gap-6 ${
+                  className={`sidebar-item w-full justify-start gap-6 ${
                     sidebarCollapsed ? 'px-2' : 'px-3'
-                  }`}
+                  } ${item.active ? 'bg-gradient-to-r from-primary/20 to-accent/20 border-l-2 border-accent' : ''}`}
                   size="sm"
                 >
                   <Icon name={item.icon as any} size={20} />
@@ -228,7 +231,7 @@ export default function Index() {
                     <Button
                       key={index}
                       variant="ghost"
-                      className="w-full justify-start gap-3 px-3"
+                      className="sidebar-item w-full justify-start gap-3 px-3"
                       size="sm"
                     >
                       <div className="relative">
@@ -255,9 +258,12 @@ export default function Index() {
             {['Все', 'Игры', 'Влоги', 'Обучение', 'Музыка', 'Кулинария', 'Технологии', 'Спорт'].map((category, index) => (
               <Button
                 key={index}
-                variant={index === 0 ? "default" : "secondary"}
                 size="sm"
-                className="whitespace-nowrap rounded-full"
+                className={`whitespace-nowrap ${
+                  index === 0 
+                    ? 'category-chip-active' 
+                    : 'category-chip'
+                }`}
               >
                 {category}
               </Button>
@@ -267,19 +273,20 @@ export default function Index() {
           {/* Videos grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
             {filteredVideos.map((video) => (
-              <Card key={video.id} className="border-0 shadow-none bg-transparent group cursor-pointer">
+              <Card key={video.id} className="video-card border-0 shadow-none bg-transparent">
                 <div className="relative mb-3">
                   <img
                     src={video.thumbnail}
                     alt={video.title}
-                    className="w-full aspect-video object-cover rounded-lg group-hover:rounded-none transition-all duration-200"
+                    className="video-thumbnail"
                   />
-                  <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded">
+                  <div className="absolute bottom-2 right-2 bg-gradient-to-r from-primary to-accent text-white text-xs px-2 py-1 rounded-full font-medium">
                     {video.duration}
                   </div>
                   <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 rounded-lg group-hover:rounded-none flex items-center justify-center">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-                      <Icon name="Play" size={48} className="text-white" />
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 relative">
+                      <div className="absolute inset-0 bg-accent/30 rounded-full blur-xl animate-pulse" />
+                      <Icon name="Play" size={48} className="text-accent relative z-10" />
                     </div>
                   </div>
                 </div>
@@ -291,10 +298,10 @@ export default function Index() {
                     </Avatar>
                     
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-medium text-sm leading-5 line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+                      <h3 className="font-medium text-sm leading-5 line-clamp-2 mb-1 group-hover:gradient-text transition-all duration-300">
                         {video.title}
                       </h3>
-                      <p className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                      <p className="text-sm text-muted-foreground hover:text-accent transition-colors cursor-pointer font-medium">
                         {video.channel}
                       </p>
                       <div className="text-sm text-muted-foreground">
