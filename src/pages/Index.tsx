@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
@@ -187,6 +188,12 @@ export default function Index() {
             </Button>
             <Button variant="ghost" size="sm" className="p-2">
               <Icon name="Bell" size={20} />
+            </Button>
+            <Button asChild variant="outline" size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white border-none">
+              <Link to="/auth">
+                <Icon name="LogIn" size={16} className="mr-2" />
+                Войти
+              </Link>
             </Button>
             <Avatar className="h-8 w-8">
               <AvatarFallback>У</AvatarFallback>
