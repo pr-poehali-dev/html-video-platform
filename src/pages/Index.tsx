@@ -158,7 +158,7 @@ export default function Index() {
                 <Icon name="Play" size={28} className="text-accent animate-pulse" />
                 <div className="absolute inset-0 bg-accent/20 rounded-full blur-lg animate-pulse" />
               </div>
-              <span className="text-xl font-bold gradient-text hidden sm:block">VideoStream</span>
+              <span className="text-xl font-bold gradient-text hidden sm:block">ASTINET</span>
             </div>
           </div>
 
