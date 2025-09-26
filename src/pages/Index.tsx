@@ -2,317 +2,323 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { Separator } from '@/components/ui/separator'
 import Icon from '@/components/ui/icon'
 
-interface Movie {
+interface Video {
   id: number
   title: string
-  genre: string[]
-  year: number
-  rating: number
-  poster: string
+  channel: string
+  channelAvatar: string
+  views: string
+  uploadTime: string
+  duration: string
+  thumbnail: string
   description: string
-  actors: string[]
 }
 
-const mockMovies: Movie[] = [
+const mockVideos: Video[] = [
   {
     id: 1,
-    title: "Темная Ночь",
-    genre: ["Триллер", "Драма"],
-    year: 2023,
-    rating: 8.5,
-    poster: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
-    description: "Захватывающий триллер о детективе, расследующем серию загадочных преступлений.",
-    actors: ["Иван Петров", "Анна Сидорова", "Михаил Козлов"]
+    title: "Самый захватывающий триллер года - обзор фильма 'Темная Ночь'",
+    channel: "КиноОбзоры",
+    channelAvatar: "КО",
+    views: "2,3 млн",
+    uploadTime: "2 дня назад",
+    duration: "15:32",
+    thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
+    description: "Подробный разбор нового триллера с Иваном Петровым"
   },
   {
     id: 2,
-    title: "Взрывная Волна",
-    genre: ["Боевик", "Приключения"],
-    year: 2023,
-    rating: 7.8,
-    poster: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
-    description: "Адреналиновый боевик с головокружительными сценами погонь и взрывов.",
-    actors: ["Александр Волков", "Елена Морозова", "Сергей Белов"]
+    title: "ТОП-10 лучших боевиков 2023 года | Что посмотреть на выходных",
+    channel: "КиноТоп",
+    channelAvatar: "КТ",
+    views: "1,8 млн",
+    uploadTime: "1 неделя назад",
+    duration: "22:45",
+    thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
+    description: "Подборка самых зрелищных боевиков этого года"
   },
   {
     id: 3,
-    title: "Тени Прошлого",
-    genre: ["Ужасы", "Мистика"],
-    year: 2022,
-    rating: 8.2,
-    poster: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
-    description: "Мистический хоррор о семье, которая переезжает в дом с темным прошлым.",
-    actors: ["Ольга Краснова", "Дмитрий Новиков", "Татьяна Лебедева"]
+    title: "Разбор концовки фильма 'Тени Прошлого' - все пасхалки и детали",
+    channel: "КиноТеории",
+    channelAvatar: "КР",
+    views: "850 тыс",
+    uploadTime: "3 дня назад",
+    duration: "18:21",
+    thumbnail: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
+    description: "Объясняем сложную концовку мистического хоррора"
   },
   {
     id: 4,
-    title: "Космическая Одиссея",
-    genre: ["Фантастика", "Драма"],
-    year: 2023,
-    rating: 9.1,
-    poster: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
-    description: "Эпическая история о путешествии к далеким звездам.",
-    actors: ["Максим Орлов", "Виктория Смирнова", "Артем Федоров"]
+    title: "КОСМИЧЕСКАЯ ОДИССЕЯ - Лучший фантастический фильм десятилетия?",
+    channel: "Космо Кино",
+    channelAvatar: "КК",
+    views: "3,2 млн",
+    uploadTime: "5 дней назад",
+    duration: "28:14",
+    thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
+    description: "Полный обзор эпической космической саги"
   },
   {
     id: 5,
-    title: "Городские Джунгли",
-    genre: ["Криминал", "Триллер"],
-    year: 2023,
-    rating: 8.0,
-    poster: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
-    description: "Напряженная криминальная драма о выживании в большом городе.",
-    actors: ["Роман Захаров", "Светлана Павлова", "Игорь Соколов"]
+    title: "За кадром: Как снимали сцены погонь в 'Городские Джунгли'",
+    channel: "КиноКухня",
+    channelAvatar: "КК",
+    views: "945 тыс",
+    uploadTime: "4 дня назад",
+    duration: "12:08",
+    thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
+    description: "Эксклюзивные кадры со съемочной площадки"
   },
   {
     id: 6,
-    title: "Последний Герой",
-    genre: ["Боевик", "Драма"],
-    year: 2022,
-    rating: 8.7,
-    poster: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
-    description: "История о человеке, который должен спасти мир от неминуемой катастрофы.",
-    actors: ["Андрей Волков", "Мария Кузнецова", "Николай Попов"]
+    title: "Все фильмы франшизы 'Последний Герой' - от худшего к лучшему",
+    channel: "КиноРейтинг",
+    channelAvatar: "КР",
+    views: "1,3 млн",
+    uploadTime: "1 день назад",
+    duration: "35:42",
+    thumbnail: "/img/2701a33e-694e-402d-848c-9ff24ef7a992.jpg",
+    description: "Разбираем всю серию фильмов о последнем герое"
+  },
+  {
+    id: 7,
+    title: "РЕАКЦИЯ на трейлер 'Темная Ночь 2' - МОИ ПРЕДСКАЗАНИЯ СБЫЛИСЬ!",
+    channel: "РеакцииПро",
+    channelAvatar: "РП",
+    views: "2,7 млн",
+    uploadTime: "6 часов назад",
+    duration: "8:45",
+    thumbnail: "/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg",
+    description: "Бурная реакция на долгожданный трейлер сиквела"
+  },
+  {
+    id: 8,
+    title: "Интервью с режиссером 'Взрывной Волны' о секретах создания фильма",
+    channel: "КиноИнтервью",
+    channelAvatar: "КИ",
+    views: "674 тыс",
+    uploadTime: "2 недели назад",
+    duration: "45:12",
+    thumbnail: "/img/dffeb761-bf0d-4fc2-b862-7136aa95b106.jpg",
+    description: "Эксклюзивное интервью с создателем блокбастера"
   }
+]
+
+const sidebarItems = [
+  { icon: "Home", label: "Главная", active: true },
+  { icon: "Compass", label: "В тренде" },
+  { icon: "Music", label: "Музыка" },
+  { icon: "Gamepad2", label: "Игры" },
+  { icon: "Newspaper", label: "Новости" },
+  { icon: "Trophy", label: "Спорт" },
+  { icon: "Lightbulb", label: "Обучение" },
+  { icon: "Shirt", label: "Мода и красота" },
+]
+
+const subscriptions = [
+  { name: "КиноОбзоры", avatar: "КО", online: true },
+  { name: "КиноТоп", avatar: "КТ", online: false },
+  { name: "КиноТеории", avatar: "КР", online: true },
+  { name: "Космо Кино", avatar: "КК", online: false },
+  { name: "КиноКухня", avatar: "КК", online: true },
 ]
 
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState('')
-  const [selectedGenre, setSelectedGenre] = useState('')
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   
-  const allGenres = Array.from(
-    new Set(mockMovies.flatMap(movie => movie.genre))
-  )
-  
-  const filteredMovies = mockMovies.filter(movie => {
-    const matchesSearch = searchQuery === '' || 
-      movie.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      movie.actors.some(actor => actor.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      movie.genre.some(genre => genre.toLowerCase().includes(searchQuery.toLowerCase()))
-    
-    const matchesGenre = selectedGenre === '' || movie.genre.includes(selectedGenre)
-    
-    return matchesSearch && matchesGenre
+  const filteredVideos = mockVideos.filter(video => {
+    if (!searchQuery) return true
+    return video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+           video.channel.toLowerCase().includes(searchQuery.toLowerCase())
   })
 
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Icon name="Film" size={32} className="text-primary" />
-              <h1 className="text-2xl font-bold text-foreground">CinemaStream</h1>
-            </div>
-            
-            <nav className="hidden md:flex items-center gap-6">
-              <Button variant="ghost" className="text-foreground hover:text-primary">
-                Главная
-              </Button>
-              <Button variant="ghost" className="text-foreground hover:text-primary">
-                Фильмы
-              </Button>
-              <Button variant="ghost" className="text-foreground hover:text-primary">
-                Сериалы
-              </Button>
-              <Button variant="ghost" className="text-foreground hover:text-primary">
-                Мой список
-              </Button>
-            </nav>
-            
-            <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground">
-              Войти
+      <header className="sticky top-0 z-50 border-b border-border bg-background">
+        <div className="flex items-center justify-between px-4 py-2">
+          {/* Left section */}
+          <div className="flex items-center gap-4">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+              className="p-2"
+            >
+              <Icon name="Menu" size={20} />
             </Button>
+            <div className="flex items-center gap-2">
+              <Icon name="Play" size={28} className="text-primary" />
+              <span className="text-xl font-semibold hidden sm:block">VideoStream</span>
+            </div>
+          </div>
+
+          {/* Center - Search */}
+          <div className="flex-1 max-w-2xl mx-4">
+            <div className="flex">
+              <div className="relative flex-1">
+                <Input
+                  type="text"
+                  placeholder="Поиск"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="rounded-r-none border-r-0 focus:z-10"
+                />
+              </div>
+              <Button variant="outline" className="rounded-l-none px-6">
+                <Icon name="Search" size={20} />
+              </Button>
+            </div>
+          </div>
+
+          {/* Right section */}
+          <div className="flex items-center gap-2">
+            <Button variant="ghost" size="sm" className="p-2">
+              <Icon name="Video" size={20} />
+            </Button>
+            <Button variant="ghost" size="sm" className="p-2">
+              <Icon name="Bell" size={20} />
+            </Button>
+            <Avatar className="h-8 w-8">
+              <AvatarFallback>У</AvatarFallback>
+            </Avatar>
           </div>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"
-          style={{
-            backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('/img/211b2e7b-6fb8-4c99-b072-14b62fc64b48.jpg')`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }}
-        />
-        <div className="relative z-10 container mx-auto px-4 text-left max-w-2xl">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 text-white leading-tight">
-            Темная Ночь
-          </h2>
-          <p className="text-xl mb-8 text-gray-200 leading-relaxed">
-            Захватывающий триллер о детективе, расследующем серию загадочных преступлений в городе, где каждая тень таит опасность.
-          </p>
-          <div className="flex gap-4 mb-6">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8">
-              <Icon name="Play" size={20} className="mr-2" />
-              Смотреть
-            </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
-              <Icon name="Plus" size={20} className="mr-2" />
-              В список
-            </Button>
-          </div>
-          <div className="flex items-center gap-4 text-sm text-gray-300">
-            <span className="flex items-center gap-1">
-              <Icon name="Star" size={16} className="text-yellow-400 fill-yellow-400" />
-              8.5
-            </span>
-            <span>2023</span>
-            <span>Триллер, Драма</span>
-          </div>
-        </div>
-      </section>
+      <div className="flex">
+        {/* Sidebar */}
+        <aside className={`sticky top-[65px] h-[calc(100vh-65px)] bg-background border-r border-border transition-all duration-300 ${
+          sidebarCollapsed ? 'w-[72px]' : 'w-64'
+        }`}>
+          <div className="p-2 overflow-y-auto h-full">
+            {/* Main navigation */}
+            <div className="space-y-1 mb-4">
+              {sidebarItems.map((item, index) => (
+                <Button
+                  key={index}
+                  variant={item.active ? "secondary" : "ghost"}
+                  className={`w-full justify-start gap-6 ${
+                    sidebarCollapsed ? 'px-2' : 'px-3'
+                  }`}
+                  size="sm"
+                >
+                  <Icon name={item.icon as any} size={20} />
+                  {!sidebarCollapsed && <span>{item.label}</span>}
+                </Button>
+              ))}
+            </div>
 
-      {/* Search and Filter */}
-      <section className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="relative flex-1">
-            <Icon name="Search" size={20} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="text"
-              placeholder="Поиск по названию, актеру или жанру..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input pl-10 h-12 text-base"
-            />
+            {!sidebarCollapsed && (
+              <>
+                <Separator className="mb-4" />
+                
+                {/* Subscriptions */}
+                <div className="space-y-1">
+                  <h3 className="px-3 text-sm font-medium text-muted-foreground mb-2">
+                    Подписки
+                  </h3>
+                  {subscriptions.map((sub, index) => (
+                    <Button
+                      key={index}
+                      variant="ghost"
+                      className="w-full justify-start gap-3 px-3"
+                      size="sm"
+                    >
+                      <div className="relative">
+                        <Avatar className="h-6 w-6">
+                          <AvatarFallback className="text-xs">{sub.avatar}</AvatarFallback>
+                        </Avatar>
+                        {sub.online && (
+                          <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 bg-green-500 border-2 border-background rounded-full" />
+                        )}
+                      </div>
+                      <span className="truncate">{sub.name}</span>
+                    </Button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
-          <div className="flex gap-2 flex-wrap">
-            <Button 
-              variant={selectedGenre === '' ? 'default' : 'outline'}
-              onClick={() => setSelectedGenre('')}
-              className="h-12"
-            >
-              Все жанры
-            </Button>
-            {allGenres.map(genre => (
+        </aside>
+
+        {/* Main content */}
+        <main className="flex-1 p-6">
+          {/* Category chips */}
+          <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
+            {['Все', 'Кино', 'Обзоры', 'Трейлеры', 'Интервью', 'Топы', 'Реакции', 'За кадром'].map((category, index) => (
               <Button
-                key={genre}
-                variant={selectedGenre === genre ? 'default' : 'outline'}
-                onClick={() => setSelectedGenre(selectedGenre === genre ? '' : genre)}
-                className="h-12"
+                key={index}
+                variant={index === 0 ? "default" : "secondary"}
+                size="sm"
+                className="whitespace-nowrap rounded-full"
               >
-                {genre}
+                {category}
               </Button>
             ))}
           </div>
-        </div>
-      </section>
 
-      {/* Movies Grid */}
-      <section className="container mx-auto px-4 pb-12">
-        <h3 className="text-2xl font-semibold mb-6 text-foreground">
-          {searchQuery || selectedGenre ? 'Результаты поиска' : 'Рекомендации'}
-          <span className="text-muted-foreground ml-2">({filteredMovies.length})</span>
-        </h3>
-        
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
-          {filteredMovies.map(movie => (
-            <Card key={movie.id} className="movie-card group">
-              <div className="relative">
-                <img
-                  src={movie.poster}
-                  alt={movie.title}
-                  className="movie-poster"
-                />
-                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                  <Button size="sm" className="bg-primary hover:bg-primary/90">
-                    <Icon name="Play" size={16} className="mr-1" />
-                    Смотреть
-                  </Button>
+          {/* Videos grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+            {filteredVideos.map((video) => (
+              <Card key={video.id} className="border-0 shadow-none bg-transparent group cursor-pointer">
+                <div className="relative mb-3">
+                  <img
+                    src={video.thumbnail}
+                    alt={video.title}
+                    className="w-full aspect-video object-cover rounded-lg group-hover:rounded-none transition-all duration-200"
+                  />
+                  <div className="absolute bottom-2 right-2 bg-black bg-opacity-80 text-white text-xs px-1.5 py-0.5 rounded">
+                    {video.duration}
+                  </div>
+                  <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-200 rounded-lg group-hover:rounded-none flex items-center justify-center">
+                    <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <Icon name="Play" size={48} className="text-white" />
+                    </div>
+                  </div>
                 </div>
-                <div className="absolute top-2 right-2 bg-black/80 px-2 py-1 rounded">
-                  <span className="text-yellow-400 text-sm font-medium flex items-center gap-1">
-                    <Icon name="Star" size={12} className="fill-yellow-400" />
-                    {movie.rating}
-                  </span>
-                </div>
-              </div>
-              <CardContent className="p-4">
-                <h4 className="font-semibold text-card-foreground mb-2 line-clamp-1">
-                  {movie.title}
-                </h4>
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {movie.genre.map(genre => (
-                    <Badge
-                      key={genre}
-                      variant="secondary"
-                      className="genre-badge text-xs"
-                      onClick={() => setSelectedGenre(genre)}
-                    >
-                      {genre}
-                    </Badge>
-                  ))}
-                </div>
-                <p className="text-xs text-muted-foreground mb-2">
-                  {movie.year} • {movie.actors.slice(0, 2).join(', ')}
-                </p>
-                <p className="text-xs text-muted-foreground line-clamp-2">
-                  {movie.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-        
-        {filteredMovies.length === 0 && (
-          <div className="text-center py-12">
-            <Icon name="Search" size={64} className="mx-auto text-muted-foreground mb-4" />
-            <h3 className="text-xl font-medium text-foreground mb-2">Ничего не найдено</h3>
-            <p className="text-muted-foreground">
-              Попробуйте изменить параметры поиска или выбрать другой жанр
-            </p>
+                
+                <CardContent className="p-0">
+                  <div className="flex gap-3">
+                    <Avatar className="h-9 w-9 mt-1 flex-shrink-0">
+                      <AvatarFallback className="text-xs">{video.channelAvatar}</AvatarFallback>
+                    </Avatar>
+                    
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium text-sm leading-5 line-clamp-2 mb-1 group-hover:text-primary transition-colors">
+                        {video.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+                        {video.channel}
+                      </p>
+                      <div className="text-sm text-muted-foreground">
+                        {video.views} просмотров • {video.uploadTime}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-        )}
-      </section>
 
-      {/* Footer */}
-      <footer className="border-t border-border bg-card/30 mt-12">
-        <div className="container mx-auto px-4 py-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <h5 className="font-semibold text-foreground mb-4">Контент</h5>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Фильмы</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Сериалы</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Документальные</a></li>
-              </ul>
+          {/* No results */}
+          {filteredVideos.length === 0 && searchQuery && (
+            <div className="text-center py-12">
+              <Icon name="Search" size={64} className="mx-auto text-muted-foreground mb-4" />
+              <h3 className="text-xl font-medium mb-2">Ничего не найдено</h3>
+              <p className="text-muted-foreground">
+                Попробуйте другие ключевые слова или проверьте правописание
+              </p>
             </div>
-            <div>
-              <h5 className="font-semibold text-foreground mb-4">Жанры</h5>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Боевики</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Драмы</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Комедии</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-foreground mb-4">Поддержка</h5>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-colors">Помощь</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">Контакты</a></li>
-                <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-foreground mb-4">Социальные сети</h5>
-              <div className="flex gap-4">
-                <Icon name="Facebook" size={20} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                <Icon name="Twitter" size={20} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-                <Icon name="Instagram" size={20} className="text-muted-foreground hover:text-primary transition-colors cursor-pointer" />
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-            <p>&copy; 2024 CinemaStream. Все права защищены.</p>
-          </div>
-        </div>
-      </footer>
+          )}
+        </main>
+      </div>
     </div>
   )
 }
