@@ -132,6 +132,7 @@ const subscriptions = [
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState('')
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false) // Симуляция авторизации
   
   const filteredVideos = mockVideos.filter(video => {
     if (!searchQuery) return true
@@ -189,11 +190,29 @@ export default function Index() {
             <Button variant="ghost" size="sm" className="p-2">
               <Icon name="Bell" size={20} />
             </Button>
-            <Button asChild variant="outline" size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white border-none">
-              <Link to="/auth">
-                <Icon name="LogIn" size={16} className="mr-2" />
-                Войти
-              </Link>
+            {isAuthenticated ? (
+              <Button asChild variant="outline" size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white border-none">
+                <Link to="/upload">
+                  <Icon name="Plus" size={16} className="mr-2" />
+                  Загрузить
+                </Link>
+              </Button>
+            ) : (
+              <Button asChild variant="outline" size="sm" className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary text-white border-none">
+                <Link to="/auth">
+                  <Icon name="LogIn" size={16} className="mr-2" />
+                  Войти
+                </Link>
+              </Button>
+            )}
+            {/* Временная кнопка для тестирования */}
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => setIsAuthenticated(!isAuthenticated)}
+              className="text-xs"
+            >
+              {isAuthenticated ? '👤' : '🔒'}
             </Button>
             <Avatar className="h-8 w-8">
               <AvatarFallback>У</AvatarFallback>
