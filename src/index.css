@@ -61,7 +61,7 @@
     @apply relative overflow-hidden rounded-xl bg-card border-2 border-transparent
            hover:border-accent transition-all duration-300 
            hover:shadow-2xl hover:shadow-accent/30 hover:scale-[1.02]
-           cursor-pointer group;
+           cursor-pointer;
   }
 
   .video-thumbnail {
